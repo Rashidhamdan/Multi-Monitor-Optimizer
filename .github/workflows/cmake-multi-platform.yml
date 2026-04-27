@@ -3,12 +3,14 @@ name: C++ Qt CI
 on:
   push:
     branches: [ main, master ]
+    tags:
+      - "v*"
   pull_request:
     branches: [ main, master ]
 
 jobs:
   build-and-test:
-    name: Build and Test
+    name: Build, Test and Package Linux Binary
     runs-on: ubuntu-latest
 
     steps:
@@ -30,12 +32,28 @@ jobs:
 
       - name: Configure CMake
         run: |
-          cmake -S . -B build -G Ninja -DBUILD_TESTS=ON
+          cmake -S . -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DBUILD_TESTS=ON
 
       - name: Build
         run: |
-          cmake --build build
+          cmake --build build --config Release
 
       - name: Run tests
         run: |
           ctest --test-dir build --verbose
+
+      - name: Prepare Linux binary package
+        run: |
+          mkdir -p package
+          cp build/bin/Multi-Monitor-Optimizer package/
+          cp README.md package/
+          cp LICENSE package/ || true
+          tar -czf Multi-Monitor-Optimizer-linux-x86_64.tar.gz -C package .
+
+      - name: Upload Linux binary artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Multi-Monitor-Optimizer-linux-x86_64
+          path: Multi-Monitor-Optimizer-linux-x86_64.tar.gz
