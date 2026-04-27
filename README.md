@@ -4,6 +4,7 @@
 ![C++](https://img.shields.io/badge/C%2B%2B-17-00599C?style=flat-square)
 ![Qt](https://img.shields.io/badge/Qt-6-41CD52?style=flat-square)
 ![CMake](https://img.shields.io/badge/CMake-Build-064F8C?style=flat-square)
+![CI](https://github.com/Rashidhamdan/Multi-Monitor-Optimizer/actions/workflows/ci.yml/badge.svg)
 ![Status](https://img.shields.io/badge/Status-Active%20Development-D4A017?style=flat-square)
 
 ---
