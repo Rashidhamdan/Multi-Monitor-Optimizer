@@ -1,0 +1,41 @@
+name: C++ Qt CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Qt and build dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y \
+            cmake \
+            g++ \
+            ninja-build \
+            qt6-base-dev \
+            qt6-tools-dev \
+            qt6-tools-dev-tools \
+            qt6-charts-dev \
+            libxkbcommon-dev
+
+      - name: Configure CMake
+        run: |
+          cmake -S . -B build -G Ninja -DBUILD_TESTS=ON
+
+      - name: Build
+        run: |
+          cmake --build build
+
+      - name: Run tests
+        run: |
+          ctest --test-dir build --verbose
