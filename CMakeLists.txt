@@ -14,7 +14,6 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Charts Test)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Test)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Charts)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Quick Qml)
 
 # =========================================================
 # Additional global settings
@@ -129,10 +128,6 @@ target_link_libraries(${PROJECT_TARGET} PRIVATE
 )
 target_link_libraries(${PROJECT_TARGET} PRIVATE
     Qt${QT_VERSION_MAJOR}::Charts
-)
-target_link_libraries(Multi-Monitor-Optimizer PRIVATE
-    Qt6::Quick
-    Qt6::Qml
 )
 
 # =========================================================
